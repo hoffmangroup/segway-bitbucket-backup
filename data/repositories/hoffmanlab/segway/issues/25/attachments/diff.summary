@@ -1,0 +1,26 @@
+diff custom.str traindir/segway.str
+3c3
+< GRAPHICAL_MODEL model_custom
+---
+> GRAPHICAL_MODEL model_seg
+8d7
+<      switchingparents: nil;
+14d12
+<      switchingparents: nil;
+21d18
+<      switchingparents: nil;
+
+diff custom.inc traindir/auxiliary/segway.inc
+
+diff custom.master traindir/params/input.master
+1c1
+< #include "custom.inc"
+---
+> #include "traindir/auxiliary/segway.inc"
+
+After this, the "custom.str" and "custom.master" files are copied to "custom_backup" folder. Then we run the following command:
+
+segway --clobber --seg-table=custom.tab --resolution=200 --ruler-scale=200 --input-master=custom.master --structure=custom.str --cluster-opt="-q scavenger -P scavenger -W 01:00" --num-labels=4 train test.genomedata customdir
+
+After segway finished running, the two files were overwritten by segway without any warnings.
+
